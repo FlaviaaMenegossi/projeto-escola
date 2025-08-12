@@ -55,6 +55,10 @@ h6 {
     font-size: 1.5rem;
   }
 }
+.hero-content p.custom-paragraph {
+  color: #fff !important; /* Cor branca apenas nesse parágrafo */
+}
+
 p {
   margin-bottom: 1rem;
   color: #475569;
@@ -618,6 +622,104 @@ p {
 .btn-outline-primary:hover {
   background: #2563eb;
   border-color: #2563eb;
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    height: 100vh;
+  }
+  .hero-section .carousel-item {
+    height: 100vh;
+    position: relative;
+  }
+  .hero-section .hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .hero-section .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  .hero-section .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: #fff;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+  .hero-section .hero-content .hero-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .hero-section .hero-content .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+  .hero-section .hero-content .hero-cta {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+  }
+  .hero-section .hero-content .hero-cta:hover {
+    background: #fff;
+    color: #2563eb;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-section {
+    height: 80vh !important;
+  }
+  .hero-section .hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .hero-section .hero-content {
+    height: 80vh;
+    padding: 1rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-section .hero-content .hero-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .hero-section .hero-content .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+  .hero-section .hero-content .hero-cta {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

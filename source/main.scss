@@ -111,6 +111,10 @@ h6 { font-size: 1rem; }
   h3 { font-size: 1.5rem; }
 }
 
+  .hero-content p.custom-paragraph {
+    color: #fff !important;  /* Cor branca apenas nesse parágrafo */
+  }
+
 p {
   margin-bottom: 1rem;
   color: $gray-600;
@@ -232,6 +236,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     
     .hero-title {
       font-size: 3.5rem;
@@ -249,6 +254,7 @@ p {
       margin-bottom: 2rem;
       opacity: 0.9;
       animation: fadeInUp 1s ease-out 0.3s both;
+      
     }
     
     .hero-cta {
@@ -803,3 +809,124 @@ p {
     border-color: $primary-color;
   }
 }
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    height: 100vh;  // mantém a altura da tela toda
+    
+    .carousel-item {
+      height: 100vh;
+      position: relative;
+    }
+    
+    .hero-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;        // cobre todo o slide
+      object-fit: cover;
+      z-index: 0;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4); // ou seu gradiente
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;            // acima da imagem e overlay
+      color: #fff;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      
+      .hero-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+      }
+      
+      .hero-cta {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 50px;
+        border: 2px solid #fff;
+        background: transparent;
+        color: #fff;
+        
+        &:hover {
+          background: #fff;
+          color: #2563eb;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-section {
+    height: 80vh !important;
+
+
+    .hero-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-content {
+      height: 80vh;
+      padding: 1rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      .hero-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+      }
+
+      .hero-cta {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+      }
+    }
+  }
+}
+
+

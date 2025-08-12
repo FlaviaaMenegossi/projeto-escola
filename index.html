@@ -74,7 +74,7 @@
                     <div class="container">
                         <div class="hero-content">
                             <h1 class="hero-title">Matrículas Abertas 2025</h1>
-                            <p class="hero-subtitle">Educação de qualidade que transforma vidas e constrói futuros brilhantes</p>
+                            <p class="hero-subtitle custom-paragraph">Educação de qualidade que transforma vidas e constrói futuros brilhantes</p>
                             <a href="#matriculas" class="btn btn-primary btn-lg hero-cta">Matricule-se Agora</a>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                     <div class="container">
                         <div class="hero-content">
                             <h1 class="hero-title">Ambiente Acolhedor</h1>
-                            <p class="hero-subtitle">Um espaço onde cada criança se sente em casa e pode desenvolver todo seu potencial</p>
+                            <p class="hero-subtitle custom-paragraph">Um espaço onde cada criança se sente em casa e pode desenvolver todo seu potencial</p>
                             <a href="#colegio" class="btn btn-primary btn-lg hero-cta">Conheça Nossa Escola</a>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                     <div class="container">
                         <div class="hero-content">
                             <h1 class="hero-title">Preparação para o Futuro</h1>
-                            <p class="hero-subtitle">Metodologias inovadoras e tecnologia educacional para formar cidadãos preparados</p>
+                            <p class="hero-subtitle custom-paragraph">Metodologias inovadoras e tecnologia educacional para formar cidadãos preparados</p>
                             <a href="#diferenciais" class="btn btn-primary btn-lg hero-cta">Nossos Diferenciais</a>
                         </div>
                     </div>
@@ -228,8 +228,8 @@
                         <div class="differential-icon">
                             <i class="fas fa-heart"></i>
                         </div>
-                        <div class="differential-image">
-                            <img src="assets/diferenciais_acolhimento.png" alt="Acolhimento">
+                        <div>
+                                <p>Acolhimento</p>
                         </div>
                         <h3>Acolhimento Personalizado</h3>
                         <p>Cada aluno é único e recebe atenção individualizada para seu desenvolvimento pleno e feliz.</p>
@@ -241,8 +241,8 @@
                         <div class="differential-icon">
                             <i class="fas fa-laptop-code"></i>
                         </div>
-                        <div class="differential-image">
-                            <img src="assets/diferenciais_programas_ensino.png" alt="Programas de Ensino">
+                        <div>
+                            <p>Programas de Ensino</p>
                         </div>
                         <h3>Programas de Ensino Inovadores</h3>
                         <p>Metodologias ativas e tecnologia educacional para uma aprendizagem significativa e moderna.</p>
@@ -254,8 +254,9 @@
                         <div class="differential-icon">
                             <i class="fas fa-palette"></i>
                         </div>
-                        <div class="differential-image">
-                            <img src="assets/diferenciais_extracurriculares.png" alt="Cursos Extracurriculares">
+                        <div>
+                            <p>Cursos Extracurriculares</p>
+
                         </div>
                         <h3>Cursos Extracurriculares</h3>
                         <p>Desenvolvimento de talentos através de esportes, artes, música, robótica e muito mais.</p>
@@ -280,7 +281,7 @@
                             <div class="col-lg-8">
                                 <div class="testimonial-card">
                                     <div class="testimonial-image">
-                                        <img src="assets/depoimentos_pais_felizes.png" alt="Pais Satisfeitos">
+                                        <img src="images/depoimento.jpg" alt="Pais Satisfeitos">
                                     </div>
                                     <div class="testimonial-content">
                                         <div class="stars">
@@ -304,7 +305,7 @@
                             <div class="col-lg-8">
                                 <div class="testimonial-card">
                                     <div class="testimonial-image">
-                                        <img src="assets/depoimentos_pais_felizes.png" alt="Pais Satisfeitos">
+                                        <img src="images/depoiimento.jpg" alt="Pais Satisfeitos">
                                     </div>
                                     <div class="testimonial-content">
                                         <div class="stars">
@@ -394,25 +395,37 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="nome" class="form-label">Nome Completo *</label>
-                                    <input type="text" class="form-control" id="nome" required>
+                                    <input type="text" class="form-control" id="nome" name="nome" required>
+                                    <div class="invalid-feedback">
+                                        Por favor, informe seu nome.
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">E-mail *</label>
-                                    <input type="email" class="form-control" id="email" required>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div class="invalid-feedback">
+                                        Por favor, informe seu e-mail.
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="telefone" class="form-label">Telefone *</label>
-                                    <input type="tel" class="form-control" id="telefone" required>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                                    <div class="invalid-feedback">
+                                        Número inválido.
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="segmento" class="form-label">Segmento de Interesse</label>
-                                    <select class="form-select" id="segmento">
+                                    <select class="form-select" id="segmento" name="segmento" required>
                                         <option value="">Selecione...</option>
                                         <option value="educacao-infantil">Educação Infantil</option>
                                         <option value="fundamental-1">Ensino Fundamental I</option>
                                         <option value="fundamental-2">Ensino Fundamental II</option>
                                         <option value="ensino-medio">Ensino Médio</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Por favor, selecione segmento de interesse.
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <label for="mensagem" class="form-label">Mensagem</label>

@@ -49,108 +49,188 @@ $(document).ready(function() {
     });
     
     // Contact form validation and submission
-    $('#contactForm').on('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        var nome = $('#nome').val().trim();
-        var email = $('#email').val().trim();
-        var telefone = $('#telefone').val().trim();
-        var segmento = $('#segmento').val();
-        var mensagem = $('#mensagem').val().trim();
-        
-        // Basic validation
-        var isValid = true;
-        var errorMessage = '';
-        
-        if (!nome) {
-            isValid = false;
-            errorMessage += 'Nome é obrigatório.\n';
-        }
-        
-        if (!email) {
-            isValid = false;
-            errorMessage += 'E-mail é obrigatório.\n';
-        } else if (!isValidEmail(email)) {
-            isValid = false;
-            errorMessage += 'E-mail inválido.\n';
-        }
-        
-        if (!telefone) {
-            isValid = false;
-            errorMessage += 'Telefone é obrigatório.\n';
-        }
-        
-        if (!isValid) {
-            alert(errorMessage);
-            return;
-        }
-        
-        // Show loading state
-        var submitBtn = $(this).find('button[type="submit"]');
-        var originalText = submitBtn.text();
-        submitBtn.text('Enviando...').prop('disabled', true);
-        
-        // Simulate form submission (replace with actual form handling)
-        setTimeout(function() {
-            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-            $('#contactForm')[0].reset();
-            submitBtn.text(originalText).prop('disabled', false);
-        }, 2000);
-    });
-    
-    // Email validation function
-    function isValidEmail(email) {
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+// Validação e envio do formulário de contato
+$(document).ready(function() {
+
+  // DDDs válidos (mesmo que antes)
+  const validDDDs = [
+    '11','12','13','14','15','16','17','18','19',
+    '21','22','24','27','28',
+    '31','32','33','34','35','37','38',
+    '41','42','43','44','45','46',
+    '47','48','49',
+    '51','53','54','55',
+    '61','62','63','64','65','66','67','68','69',
+    '71','73','74','75','77','79',
+    '81','82','83','84','85','86','87','88','89',
+    '91','92','93','94','95','96','97','98','99'
+  ];
+
+  // Máscara para telefone: aceita fixo (10 dígitos) e celular (11 dígitos)
+  $('#telefone').on('input', function() {
+    let val = $(this).val().replace(/\D/g, ''); // só números
+
+    if(val.length > 11) val = val.substring(0,11);
+
+    if(val.length <= 2){
+      val = '(' + val;
+    } else if(val.length <= 6){
+      val = '(' + val.substring(0,2) + ') ' + val.substring(2);
+    } else if(val.length <= 10) { // fixo: (XX) XXXX-XXXX
+      val = '(' + val.substring(0,2) + ') ' + val.substring(2,6) + '-' + val.substring(6);
+    } else { // celular: (XX) XXXXX-XXXX
+      val = '(' + val.substring(0,2) + ') ' + val.substring(2,7) + '-' + val.substring(7);
     }
-    
-    // Phone number formatting
-    $('#telefone').on('input', function() {
-        var value = $(this).val().replace(/\D/g, '');
-        var formattedValue = '';
-        
-        if (value.length > 0) {
-            if (value.length <= 2) {
-                formattedValue = '(' + value;
-            } else if (value.length <= 6) {
-                formattedValue = '(' + value.substring(0, 2) + ') ' + value.substring(2);
-            } else if (value.length <= 10) {
-                formattedValue = '(' + value.substring(0, 2) + ') ' + value.substring(2, 6) + '-' + value.substring(6);
-            } else {
-                formattedValue = '(' + value.substring(0, 2) + ') ' + value.substring(2, 7) + '-' + value.substring(7, 11);
-            }
-        }
-        
-        $(this).val(formattedValue);
+
+    $(this).val(val);
+  });
+
+
+  setupFormValidation();
+
+  function setupFormValidation() {
+    const form = $('#contactForm');
+
+    form.find('input, select, textarea').on('blur', function() {
+      validateField($(this));
     });
-    
-    // Newsletter subscription
-    $('.newsletter .btn').on('click', function() {
-        var email = $(this).siblings('input[type="email"]').val().trim();
-        
-        if (!email) {
-            alert('Por favor, insira seu e-mail.');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            alert('Por favor, insira um e-mail válido.');
-            return;
-        }
-        
-        // Show loading state
-        var btn = $(this);
-        var originalHtml = btn.html();
-        btn.html('<i class="fas fa-spinner fa-spin"></i>').prop('disabled', true);
-        
-        // Simulate subscription (replace with actual handling)
-        setTimeout(function() {
-            alert('Obrigado por se inscrever em nossa newsletter!');
-            btn.siblings('input[type="email"]').val('');
-            btn.html(originalHtml).prop('disabled', false);
-        }, 1500);
+
+    form.on('submit', function(e) {
+      e.preventDefault();
+
+      if (validateForm()) {
+        submitForm();
+      } else {
+        // Se algo inválido, mostra mensagem de erro geral
+        alert('Por favor, preencha corretamente todos os campos obrigatórios.');
+      }
     });
+  }
+
+  function validateField(field) {
+    const fieldName = field.attr('name');
+    const fieldValue = field.val().trim();
+    let isValid = true;
+    let errorMessage = '';
+
+    field.removeClass('is-invalid is-valid');
+    field.siblings('.invalid-feedback').hide();
+
+    switch (fieldName) {
+      case 'nome':
+        if (fieldValue.length < 2) {
+          isValid = false;
+          errorMessage = 'Nome deve ter pelo menos 2 caracteres.';
+        } else if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(fieldValue)) {
+          isValid = false;
+          errorMessage = 'Nome deve conter apenas letras e espaços.';
+        }
+        break;
+
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(fieldValue)) {
+          isValid = false;
+          errorMessage = 'Por favor, informe um e-mail válido.';
+        }
+        break;
+
+      case 'telefone':
+        const digits = fieldValue.replace(/\D/g, '');
+        const ddd = digits.substring(0, 2);
+
+        function hasRepetitivePattern(num) {
+          if (/^(\d)\1+$/.test(num)) return true;
+          for (let size = 2; size <= Math.floor(num.length / 2); size++) {
+            const pattern = num.substring(0, size);
+            const repeated = pattern.repeat(Math.ceil(num.length / size)).substring(0, num.length);
+            if (repeated === num) return true;
+          }
+          return false;
+        }
+
+        // Aceita 10 (fixo) ou 11 (celular) dígitos
+        if (
+          (digits.length !== 10 && digits.length !== 11) ||
+          !validDDDs.includes(ddd) ||
+          hasRepetitivePattern(digits)
+        ) {
+          isValid = false;
+          errorMessage = 'Número de telefone inválido.';
+        }
+        break;
+
+      case 'segmento':
+        if (!fieldValue) {
+          isValid = false;
+          errorMessage = 'Por favor, selecione um segmento.';
+        }
+        break;
+
+      case 'mensagem':
+        if (fieldValue.length < 10) {
+          isValid = false;
+          errorMessage = 'Mensagem deve ter pelo menos 10 caracteres.';
+        } else if (fieldValue.length > 1000) {
+          isValid = false;
+          errorMessage = 'Mensagem não pode exceder 1000 caracteres.';
+        }
+        break;
+    }
+
+    if (field.prop('required') && !fieldValue) {
+      field.addClass('is-invalid');
+      field.siblings('.invalid-feedback').text('Este campo é obrigatório.').show();
+    } else if (!isValid) {
+      field.addClass('is-invalid');
+      field.siblings('.invalid-feedback').text(errorMessage).show();
+    } else if (fieldValue) {
+      field.addClass('is-valid');
+    }
+
+    return isValid;
+  }
+
+  function validateForm() {
+    const form = $('#contactForm');
+    let isFormValid = true;
+
+    form.find('input[required], select[required], textarea[required]').each(function() {
+      if (!validateField($(this))) {
+        isFormValid = false;
+      }
+    });
+
+    return isFormValid;
+  }
+
+  function submitForm() {
+  const form = $('#contactForm');
+  
+  // Limpa o formulário e classes de validação
+  form[0].reset();
+  form.find('.is-valid').removeClass('is-valid');
+
+  // Cria o alerta de sucesso (Bootstrap)
+  const successAlert = $(`
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 20px;">
+      <strong>✔️ Mensagem enviada com sucesso!</strong> Entraremos em contato em breve.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  `);
+
+  // Insere a mensagem no topo do formulário
+  form.prepend(successAlert);
+
+  // Após 5 segundos, desaparece automaticamente
+  setTimeout(() => {
+    successAlert.alert('close');
+  }, 10000);
+}
+
+
+});
+
     
     // Mobile menu close on link click
     $('.navbar-nav .nav-link').on('click', function() {
