@@ -151,15 +151,16 @@ p {
   z-index: 1;
 }
 .hero-section .hero-content {
+  color: #fff;
   position: absolute;
-  z-index: 2;
-  text-align: center;
-  color: #ffffff;
-  height: 100%;
+  top: 50%; /* sobe o container até o meio da tela */
+  left: 50%; /* desloca container para meio horizontal */
+  transform: translate(-50%, -50%); /* centraliza perfeitamente */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  text-align: center;
+  z-index: 2;
 }
 .hero-section .hero-content .hero-title {
   font-size: 3.5rem;
@@ -647,7 +648,7 @@ p {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(16, 185, 129, 0.7));
     z-index: 1;
   }
   .hero-section .hero-content {
