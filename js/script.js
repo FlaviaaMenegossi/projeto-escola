@@ -364,31 +364,7 @@ $(document).ready(function() {
         }, 300);
     });
     
-    // Preload images for better performance
-    function preloadImages() {
-        var images = [
-            'assets/carousel_matriculas.png',
-            'assets/segmentos_educacao_infantil.png',
-            'assets/segmentos_ensino_fundamental.png',
-            'assets/segmentos_ensino_medio.png',
-            'assets/diferenciais_acolhimento.png',
-            'assets/diferenciais_programas_ensino.png',
-            'assets/diferenciais_extracurriculares.png',
-            'assets/depoimentos_pais_felizes.png'
-        ];
-        
-        images.forEach(function(src) {
-            var img = new Image();
-            img.src = src;
-        });
-    }
-    
-    preloadImages();
-    
-    // Error handling for missing images
-    $('img').on('error', function() {
-        $(this).attr('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlbSBuw6NvIGVuY29udHJhZGE8L3RleHQ+PC9zdmc+');
-    });
+
     
     // Performance optimization: Debounce scroll events
     function debounce(func, wait, immediate) {
